@@ -20,10 +20,16 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
     try{
         const serviceCollection=client.db('healthCoach').collection('services');
         
+        app.get('/allServices',async(req,res)=>{
+            const query={}
+            const cursor=serviceCollection.find(query);
+            const allServices=await cursor.toArray();
+            res.send(allServices);
+        })
         app.get('/services',async(req,res)=>{
             const query={}
             const cursor=serviceCollection.find(query);
-            const services=await cursor.toArray();
+            const services=await cursor.limit(3).toArray();
             res.send(services);
         })
     }
