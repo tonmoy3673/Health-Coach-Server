@@ -19,6 +19,7 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
 
     try{
         const serviceCollection=client.db('healthCoach').collection('services');
+        const orderCollection=client.db('healthCoach').collection('review');
         
         app.get('/allServices',async(req,res)=>{
             const query={}
@@ -39,6 +40,12 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
             const query={_id:ObjectId(id)};
             const service=await serviceCollection.findOne(query);
             res.send(service);
+        })
+        //review api
+        app.post('/review',async(req,res)=>{
+            const review=req.body;
+            const result=orderCollection.insertOne(review);
+            res.send(result);
         })
     }
     finally{
