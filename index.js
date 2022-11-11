@@ -79,7 +79,7 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
             const query={_id:ObjectId(id)};
             const result=await orderCollection.deleteOne(query);
             res.send(result);
-
+            console.log(result);
         })
 
         app.post('/services',async(req,res)=>{
