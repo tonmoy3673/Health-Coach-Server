@@ -82,6 +82,12 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
 
         })
 
+        app.post('/services',async(req,res)=>{
+            const services=req.body;
+            const result=await serviceCollection.insertOne(services);
+            res.send(result);
+        })
+
         
     }
     finally{
